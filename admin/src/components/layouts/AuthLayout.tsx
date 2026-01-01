@@ -1,6 +1,8 @@
 // src/layouts/AuthLayout.tsx
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
 // import Sidebar from "../../components/layout/Sidebar";
 // import Topbar from "../../components/layout/Topbar";
 
@@ -17,9 +19,9 @@ export default function AuthLayout() {
 
   return (
     <div className="flex min-h-screen max-w-screen bg-gray-100">
-      {/* <Sidebar /> */}
+      <Sidebar />
       <div className="flex-1">
-        {/* <Topbar /> */}
+        <Topbar />
         <main className="p-6">
           <Outlet />
         </main>
