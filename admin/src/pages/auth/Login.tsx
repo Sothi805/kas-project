@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import FormInput from "../../components/common/FormInput";
+import GlassButton from "../../components/common/GlassButton";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await api.post("/login", { email, password });
+      await api.post("/login", { username, password });
       navigate("/");
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed. Try admin@example.com / password123");
@@ -26,43 +28,41 @@ const Login = () => {
 
   return (
     <div className="w-full max-w-md">
-      <div className="bg-white p-8 rounded-lg shadow flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold mb-6">Login</h1>
-        
-        {error && <div className="mb-4 px-2 py-1 bg-red-100 text-red-700 rounded">{error}</div>}
-        
+      <div className="bg-transparent bg-clip-padding backdrop-filter backdrop-blur-xs inset-shadow-white/50 inset-shadow-md shadow-white/50 shadow-xs border/50 border-gray-50 rounded-xl p-8 flex flex-col items-center justify-center">
+        <h1 className="text-xl font-bold text-white mb-6 drop-shadow-white/50 drop-shadow-md">Login to Continue</h1>
+
+        {error && <div className="mb-4 px-4 py-1 bg-white/10 bg-clip-padding backdrop-filter backdrop-blur-xs inset-shadow-white/50 inset-shadow-xs shadow-white/50 shadow-xs border/50 border-gray-50 text-red-700 rounded-full">{error}</div>}
+
         <form onSubmit={handleLogin} className="space-y-4 flex flex-col w-full">
-          <div className="w-full">
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              className="w-full py-0.5 px-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="w-full">
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full py-0.5 px-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled={loading}
-            />
-          </div>
-          
-          <button
-            type="submit"
+          <FormInput
+            label="Username"
+            type="username"
+            value={username}
+            onChange={setUsername}
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded font-medium hover:bg-blue-700 disabled:opacity-50"
+          />  
+          <FormInput
+            label="Password"
+            type="password"
+            value={password}
+            onChange={setPassword}
+            disabled={loading}
+          />
+
+
+          {/* Forgot password */}
+          <a
+            href="#"
+            className="text-sm text-white/70 hover:text-white underline text-right"
           >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+            Forgot Password?
+          </a>
+
+
+          <GlassButton type="submit" loading={loading}>
+            Login
+          </GlassButton>
+
         </form>
       </div>
     </div>

@@ -8,13 +8,13 @@ export const api = axios.create({
 // Hardcoded mock user
 const MOCK_USER = {
   id: 1,
-  email: "admin@example.com",
+  username: "admin",
   name: "Admin User",
 };
 
 // Hardcoded credentials
-const VALID_EMAIL = "admin@example.com";
-const VALID_PASSWORD = "password123";
+const VALID_USERNAME = "";
+const VALID_PASSWORD = "";
 
 // Mock authentication endpoints
 api.interceptors.request.use((config) => {
@@ -41,8 +41,8 @@ api.get = function(url: string, ...args: any[]) {
 const originalPost = api.post.bind(api);
 api.post = function(url: string, data: any, ...args: any[]) {
   if (url === "/login") {
-    const { email, password } = data as { email: string; password: string };
-    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+    const { username, password } = data as { username: string; password: string };
+    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
       const token = "mock-jwt-token-" + Date.now();
       localStorage.setItem("authToken", token);
       return Promise.resolve({ data: { user: MOCK_USER, token } });
