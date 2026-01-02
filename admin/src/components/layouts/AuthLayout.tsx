@@ -22,7 +22,7 @@ export default function AuthLayout() {
       <Sidebar />
       <div className="flex-1">
         <Topbar />
-        <main className="p-6">
+        <main className="px-6 py-4 space-y-4">
           <Outlet />
         </main>
       </div>

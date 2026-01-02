@@ -20,7 +20,7 @@ const Login = () => {
       await api.post("/login", { username, password });
       navigate("/");
     } catch (err: any) {
-      setError(err.response?.data?.message || "Login failed. Try admin@example.com / password123");
+      setError(err.response?.data?.message || "Login failed. Try again.");
     } finally {
       setLoading(false);
     }
