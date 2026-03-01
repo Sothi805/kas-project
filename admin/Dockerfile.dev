@@ -1,9 +1,0 @@
-FROM node:24-alpine
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-# source code comes from volume in dev
-CMD ["npm", "run", "dev"]
